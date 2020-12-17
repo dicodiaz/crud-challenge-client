@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {getRideListAction} from '../../store/actions';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRideListAction } from '../../store/actions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -23,11 +23,11 @@ function RidesList() {
   return (
     <div>
       <List className="section">
-        {rides && !error && rides.map(ride => (
-          <ListItem key={ride.driver_id}>{ride.first_point} {ride.target_point}</ListItem>
+        {rides && !error && rides.map((ride, i) => (
+          <ListItem key={i}>From ({ride.first_point.lat} {ride.first_point.lng}) to ({ride.target_point.lat} {ride.target_point.lng})</ListItem>
         ))}
         <span>{error}</span>
-        <hr/>
+        <hr />
       </List>
       <br />
       <ButtonGroup color="primary" aria-label="outlined primary button group">
