@@ -1,93 +1,128 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
-import {useHistory} from 'react-router-dom';
-import './DriverCreate.css';
-import {useInputHook} from '../commons/input-hook';
-import {setDriverAction} from '../../store/actions';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useInputHook } from '../commons/input-hook';
+import { createDriverAction } from '../../store/actions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+      background: 'white',
+      border: 'white',
+    },
+  },
+}));
 
 function DriversList() {
-  const dispatch = useDispatch();
+  const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const {value: firstNameValue, bind: firstNameBind} = useInputHook('');
-  const {value: lastNameValue, bind: lastNameBind} = useInputHook('');
-  const {value: driverIdValue, bind: driverIdBind} = useInputHook('');
-  const {value: ageValue, bind: ageBind} = useInputHook('');
-  const {value: usernameValue, bind: usernameBind} = useInputHook('');
+  const { value: driverIdValue, bind: driverIdBind } = useInputHook('');
+  const { value: firstNameValue, bind: firstNameBind } = useInputHook('');
+  const { value: lastNameValue, bind: lastNameBind } = useInputHook('');
+  const { value: ageValue, bind: ageBind } = useInputHook('');
+  const { value: usernameValue, bind: usernameBind } = useInputHook('');
+  const { value: phoneValue, bind: phoneBind } = useInputHook('');
+  const { value: passwordValue, bind: passwordBind } = useInputHook('');
 
   const handleSubmit = (event) => {
     const data = {
-      firstNameValue,
-      lastNameValue,
-      driverIdValue,
-      ageValue,
-      usernameValue
+      driver_id: driverIdValue,
+      firstname: firstNameValue,
+      lastname: lastNameValue,
+      age: ageValue,
+      username: usernameValue,
+      phone: phoneValue,
+      password: passwordValue,
     };
-
-    dispatch(setDriverAction(data));
+    dispatch(createDriverAction(data));
   };
 
-  const handleClick = () => history.push('');
+  const handleClick = (page) => history.push(page);
 
   return (
-    <form>
-      <TextField
-        className={`elements-input`}
-        id="firstName"
-        label="Nombre"
-        onChange={event => firstNameBind.onChange(event)} />
-      <br/>
-
-      <TextField
-        className={`elements-input`}
-        id="lastname"
-        label="Apellido"
-        variant="filled"
-        onChange={event => lastNameBind.onChange(event)} />
-      <br/>
-
-      <TextField
-        className={`elements-input`}
-        id="customerId"
-        label="Identificacion"
-        variant="outlined"
-        onChange={event => driverIdBind.onChange(event)} />
-      <br/>
-
-      <TextField
-        className={`elements-input`}
-        id="email"
-        label="Email"
-        variant="standard"
-        onChange={event => ageBind.onChange(event)} />
-      <br/>
-
-      <TextField
-        className={`elements-input`}
-        id="username"
-        label="Username"
-        variant="outlined"
-        onChange={event => usernameBind.onChange(event)} />
-      <br/>
-
-      <Button
-        className={`elements-input`}
-        variant="contained"
-        color="primary"
-        onClick={ (event) => handleSubmit(event)}>
-        Enviar
+    <div>
+      <h2>Crear conductor</h2>
+      <form className={classes.root}>
+        <TextField
+          required
+          id="driver_id"
+          label="ID"
+          variant="outlined"
+          size="small"
+          onChange={event => driverIdBind.onChange(event)} />
+        <br />
+        <TextField
+          required
+          id="firstname"
+          label="Nombre"
+          variant="outlined"
+          size="small"
+          onChange={event => firstNameBind.onChange(event)} />
+        <br />
+        <TextField
+          required
+          id="lastname"
+          label="Apellido"
+          variant="outlined"
+          size="small"
+          onChange={event => lastNameBind.onChange(event)} />
+        <br />
+        <TextField
+          required
+          id="age"
+          label="Edad"
+          variant="outlined"
+          size="small"
+          type="number"
+          onChange={event => ageBind.onChange(event)} />
+        <br />
+        <TextField
+          required
+          id="username"
+          label="Usuario"
+          variant="outlined"
+          size="small"
+          onChange={event => usernameBind.onChange(event)} />
+        <br />
+        <TextField
+          required
+          id="phone"
+          label="Teléfono"
+          variant="outlined"
+          size="small"
+          onChange={event => phoneBind.onChange(event)} />
+        <br />
+        <TextField
+          required
+          id="password"
+          label="Contraseña"
+          variant="outlined"
+          size="small"
+          type="password"
+          onChange={event => passwordBind.onChange(event)} />
+        <br />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(event) => handleSubmit(event)}>
+          Enviar
       </Button>
-      <br/>
-      <Button
-        className={`elements-input`}
-        variant="contained"
-        color="secondary"
-        onClick={ (event) => handleClick()}>
-        Regresar
+        <br />
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={(event) => handleClick('')}>
+          Regresar
       </Button>
-    </form>
+      </form>
+    </div>
   );
 }
 

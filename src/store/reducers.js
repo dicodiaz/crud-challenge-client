@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { GET_DRIVERS_LIST, GET_DRIVERS_LIST_ERROR, SET_DRIVER, SET_DRIVER_ERROR } from './actions';
+import { GET_DRIVERS_LIST, GET_DRIVERS_LIST_ERROR, CREATE_DRIVER, CREATE_DRIVER_ERROR, SEARCH_DRIVER, SEARCH_DRIVER_ERROR } from './actions';
 import { GET_CUSTOMERS_LIST, GET_CUSTOMERS_LIST_ERROR } from './actions';
 import { GET_CARS_LIST, GET_CARS_LIST_ERROR } from './actions';
 import { GET_RIDES_LIST, GET_RIDES_LIST_ERROR } from './actions';
@@ -23,12 +23,22 @@ const driverReducers = (state = initialDriver, action) => {
                 ...state,
                 driversError: action.error
             };
-        case SET_DRIVER:
+        case CREATE_DRIVER:
             return {
                 ...state,
                 driver: action.payload.data
             };
-        case SET_DRIVER_ERROR:
+        case CREATE_DRIVER_ERROR:
+            return {
+                ...state,
+                driverError: action.error
+            };
+        case SEARCH_DRIVER:
+            return {
+                ...state,
+                driver: action.payload.data
+            };
+        case SEARCH_DRIVER_ERROR:
             return {
                 ...state,
                 driverError: action.error
