@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 function DriversList() {
   const classes = useStyles();
   const history = useHistory();
-
   const dispatch = useDispatch();
   const drivers = useSelector(store => store.driverReducers.drivers);
   const error = useSelector(store => store.driverReducers.driversError);

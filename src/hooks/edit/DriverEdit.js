@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useInputHook } from '../commons/input-hook';
-import { createDriverAction } from '../../store/actions';
+import { editDriverAction } from '../../store/actions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,6 +23,7 @@ function DriversList() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const { value: idValue, bind: idBind } = useInputHook('');
   const { value: driverIdValue, bind: driverIdBind } = useInputHook('');
   const { value: firstNameValue, bind: firstNameBind } = useInputHook('');
   const { value: lastNameValue, bind: lastNameBind } = useInputHook('');
@@ -32,6 +33,7 @@ function DriversList() {
   const { value: passwordValue, bind: passwordBind } = useInputHook('');
 
   const handleSubmit = (event) => {
+    const id = idValue;
     const data = {
       driver_id: driverIdValue,
       firstname: firstNameValue,
@@ -41,15 +43,24 @@ function DriversList() {
       phone: phoneValue,
       password: passwordValue,
     };
-    dispatch(createDriverAction(data));
+    dispatch(editDriverAction(id, data));
   };
 
   const handleClick = (page) => history.push(page);
 
   return (
     <div>
-      <h2>Crear conductor</h2>
+      <h2>Editar conductor</h2>
+      <p>Ingrese sólo los campos que desea editar</p>
       <form className={classes.root}>
+      <TextField
+          required
+          id="id"
+          label="ID"
+          variant="outlined"
+          size="small"
+          onChange={event => idBind.onChange(event)} />
+        <br />
         <TextField
           required
           id="driver_id"

@@ -16,6 +16,6 @@ export const editDriver = (id, data) => {
   return http.put(`/api/v1/users/drivers/${id}/detail`, data);
 };
 
-export const deleteDriver = (id) => {
-  return http.delete(`/api/v1/users/drivers/${id}/detail`);
+export const deleteDriver = (data) => {
+  return http.delete(`/api/v1/users/drivers/${data.id}/detail`);
 };
