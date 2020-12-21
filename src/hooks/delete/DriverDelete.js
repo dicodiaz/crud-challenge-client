@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useInputHook } from '../commons/input-hook';
-import { searchDriverAction } from '../../store/actions';
+import { deleteDriverAction } from '../../store/actions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,14 +31,14 @@ function DriversList() {
     const data = {
       id: idValue,
     };
-    dispatch(searchDriverAction(data));
+    dispatch(deleteDriverAction(data));
   };
 
   const handleClick = (page) => history.push(page);
 
   return (
     <div>
-      <h2>Buscar conductor</h2>
+      <h2>Eliminar conductor</h2>
       <form className={classes.root}>
         <TextField
           required
@@ -63,7 +63,7 @@ function DriversList() {
       </Button>
       </form>
       <br />
-      {Object.keys(driver).length !== 0 && !error &&
+      {/* {Object.keys(driver).length !== 0 && !error &&
         <p>
           Driver#{driver.id}<br />
           Name: {driver.firstname}<br />
@@ -73,7 +73,7 @@ function DriversList() {
           Username: {driver.username}<br />
           Phone: {driver.phone}<br />
         </p>
-      }
+      } */}
     </div>
   );
 }

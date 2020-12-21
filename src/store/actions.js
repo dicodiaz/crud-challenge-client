@@ -1,4 +1,4 @@
-import { getDrivers, createDriver, searchDriver } from '../services/drivers';
+import { getDrivers, createDriver, searchDriver, editDriver, deleteDriver } from '../services/drivers';
 import { getCustomers } from '../services/customers';
 import { getCars } from '../services/cars';
 import { getRides } from '../services/rides';
@@ -78,6 +78,58 @@ export const searchDriverAsync = (payload) => ({
 
 export const searchDriverErrorAsync = (error) => ({
   type: SEARCH_DRIVER_ERROR,
+  error: error
+});
+
+// editDriver
+export const EDIT_DRIVER = 'EDIT_DRIVER';
+export const EDIT_DRIVER_ERROR = 'EDIT_DRIVER_ERROR';
+
+export const editDriverAction = (id, data) => {
+  return dispatch => {
+    editDriver(id, data)
+      .then(response => {
+        dispatch(editDriverAsync(response));
+      })
+      .catch(error => {
+        dispatch(editDriverErrorAsync(error));
+      });
+  }
+};
+
+export const editDriverAsync = (payload) => ({
+  type: EDIT_DRIVER,
+  payload: payload
+});
+
+export const editDriverErrorAsync = (error) => ({
+  type: EDIT_DRIVER_ERROR,
+  error: error
+});
+
+// deleteDriver
+export const DELETE_DRIVER = 'DELETE_DRIVER';
+export const DELETE_DRIVER_ERROR = 'DELETE_DRIVER_ERROR';
+
+export const deleteDriverAction = (id, data) => {
+  return dispatch => {
+    deleteDriver(id, data)
+      .then(response => {
+        dispatch(deleteDriverAsync(response));
+      })
+      .catch(error => {
+        dispatch(deleteDriverErrorAsync(error));
+      });
+  }
+};
+
+export const deleteDriverAsync = (payload) => ({
+  type: DELETE_DRIVER,
+  payload: payload
+});
+
+export const deleteDriverErrorAsync = (error) => ({
+  type: DELETE_DRIVER_ERROR,
   error: error
 });
 
