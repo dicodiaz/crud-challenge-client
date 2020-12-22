@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useInputHook } from '../commons/input-hook';
 import { createDriverAction } from '../../store/actions';
@@ -22,6 +22,8 @@ function DriversList() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const driver = useSelector(store => store.driverReducers.driverCreated);
+  const error = useSelector(store => store.driverReducers.driverCreatedError);
 
   const { value: driverIdValue, bind: driverIdBind } = useInputHook('');
   const { value: firstNameValue, bind: firstNameBind } = useInputHook('');
@@ -48,7 +50,7 @@ function DriversList() {
 
   return (
     <div>
-      <h2>Crear conductor</h2>
+      <h2>Registrar conductor</h2>
       <form className={classes.root}>
         <TextField
           required
@@ -122,6 +124,18 @@ function DriversList() {
           Regresar
       </Button>
       </form>
+      <br />
+      {Object.keys(driver).length !== 0 && !error &&
+        <p style={{color: "green"}}>
+          Conductor creado exitosamente: <br />
+          ID: {driver.driver_id}<br />
+          Nombre: {driver.firstname}<br />
+          Apellido: {driver.lastname}<br />
+          Edad: {driver.age}<br />
+          Usuario: {driver.username}<br />
+          Teléfono: {driver.phone}<br />
+        </p>
+      }
     </div>
   );
 }

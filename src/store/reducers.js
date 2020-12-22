@@ -1,14 +1,22 @@
 import { combineReducers } from 'redux';
-import { GET_DRIVERS_LIST, GET_DRIVERS_LIST_ERROR, CREATE_DRIVER, CREATE_DRIVER_ERROR, SEARCH_DRIVER, SEARCH_DRIVER_ERROR, EDIT_DRIVER, EDIT_DRIVER_ERROR, DELETE_DRIVER, DELETE_DRIVER_ERROR } from './actions';
+import { GET_DRIVERS_LIST, GET_DRIVERS_LIST_ERROR, CREATE_DRIVER, CREATE_DRIVER_ERROR, SEARCH_DRIVER, SEARCH_DRIVER_ERROR, EDIT_DRIVER, EDIT_DRIVER_ERROR, DELETE_DRIVER, DELETE_DRIVER_ERROR, AUTHENTICATE_DRIVER, AUTHENTICATE_DRIVER_ERROR } from './actions';
 import { GET_CUSTOMERS_LIST, GET_CUSTOMERS_LIST_ERROR } from './actions';
 import { GET_CARS_LIST, GET_CARS_LIST_ERROR } from './actions';
 import { GET_RIDES_LIST, GET_RIDES_LIST_ERROR } from './actions';
 
 const initialDriver = {
-    drivers: [],
-    driver: {},
-    driversError: '',
-    driverError: ''
+    allDrivers: [],
+    driverCreated: {},
+    driversFound: [],
+    driverEdited: {},
+    driverDeleted: {},
+    driverAuthenticated: {},
+    allDriversError: '',
+    driverCreatedError: '',
+    driversFoundError: '',
+    driverEditedError: '',
+    driverDeletedError: '',
+    driverAuthenticatedError: '',
 };
 
 const driverReducers = (state = initialDriver, action) => {
@@ -16,52 +24,62 @@ const driverReducers = (state = initialDriver, action) => {
         case GET_DRIVERS_LIST:
             return {
                 ...state,
-                drivers: action.payload.data
+                allDrivers: action.payload.data
             };
         case GET_DRIVERS_LIST_ERROR:
             return {
                 ...state,
-                driversError: action.error
+                allDriversError: action.error
             };
         case CREATE_DRIVER:
             return {
                 ...state,
-                driver: action.payload.data
+                driverCreated: action.payload.data
             };
         case CREATE_DRIVER_ERROR:
             return {
                 ...state,
-                driverError: action.error
+                driverCreatedError: action.error
             };
         case SEARCH_DRIVER:
             return {
                 ...state,
-                driver: action.payload.data[0]
+                driversFound: action.payload.data
             };
         case SEARCH_DRIVER_ERROR:
             return {
                 ...state,
-                driverError: action.error
+                driversFoundError: action.error
             };
         case EDIT_DRIVER:
             return {
                 ...state,
-                driver: action.payload.data
+                driverEdited: action.payload.data
             };
         case EDIT_DRIVER_ERROR:
             return {
                 ...state,
-                driverError: action.error
+                driverEditedError: action.error
             };
         case DELETE_DRIVER:
             return {
                 ...state,
-                driver: action.payload.data
+                driverDeleted: action.payload.data
             };
         case DELETE_DRIVER_ERROR:
             return {
                 ...state,
-                driverError: action.error
+                driverDeletedError: action.error
+            };
+        case AUTHENTICATE_DRIVER:
+            return {
+                ...state,
+                driverAuthenticated: action.payload.data
+            };
+        case AUTHENTICATE_DRIVER_ERROR:
+            return {
+                ...state,
+                driverAuthenticatedError: action.error
             };
         default:
             return state;

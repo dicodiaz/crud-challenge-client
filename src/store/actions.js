@@ -1,4 +1,4 @@
-import { getDrivers, createDriver, searchDriver, editDriver, deleteDriver } from '../services/drivers';
+import { getDrivers, createDriver, searchDriver, editDriver, deleteDriver, authenticateDriver } from '../services/drivers';
 import { getCustomers } from '../services/customers';
 import { getCars } from '../services/cars';
 import { getRides } from '../services/rides';
@@ -130,6 +130,32 @@ export const deleteDriverAsync = (payload) => ({
 
 export const deleteDriverErrorAsync = (error) => ({
   type: DELETE_DRIVER_ERROR,
+  error: error
+});
+
+// authenticateDriver
+export const AUTHENTICATE_DRIVER = 'AUTHENTICATE_DRIVER';
+export const AUTHENTICATE_DRIVER_ERROR = 'AUTHENTICATE_DRIVER_ERROR';
+
+export const authenticateDriverAction = (data) => {
+  return dispatch => {
+    authenticateDriver(data)
+      .then(response => {
+        dispatch(authenticateDriverAsync(response));
+      })
+      .catch(error => {
+        dispatch(authenticateDriverErrorAsync(error));
+      });
+  }
+};
+
+export const authenticateDriverAsync = (payload) => ({
+  type: AUTHENTICATE_DRIVER,
+  payload: payload
+});
+
+export const authenticateDriverErrorAsync = (error) => ({
+  type: AUTHENTICATE_DRIVER_ERROR,
   error: error
 });
 

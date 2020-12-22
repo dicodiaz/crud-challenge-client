@@ -37,8 +37,10 @@ function DriversList() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const drivers = useSelector(store => store.driverReducers.drivers);
-  const error = useSelector(store => store.driverReducers.driversError);
+  const drivers = useSelector(store => store.driverReducers.allDrivers);
+  const error = useSelector(store => store.driverReducers.allDriversError);
+  console.log(drivers);
+  console.log(error);
 
   const handleClick = (page) => history.push(page);
 
@@ -68,7 +70,7 @@ function DriversList() {
             </Accordion>
           </ListItem>
         ))}
-        <span>{error}</span>
+        <span style={{ color: "red" }}>{error.message}</span>
         <hr />
       </List>
       <br />
